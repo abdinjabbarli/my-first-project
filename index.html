@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boca Weather</title>
+  <meta name="description" content="Live weather powered by Open-Meteo. Defaults to Boca Raton, FL.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%85%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="src/style.css">
+  <script>
+    // Apply saved theme before paint to avoid a flash.
+    try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div>
+        <h1 id="greeting" aria-live="polite">Welcome</h1>
+        <p class="sub" id="place">Boca Raton, Florida</p>
+      </div>
+      <div class="theme" role="group" aria-label="Theme">
+        <button data-theme-btn="light" aria-pressed="false">Light</button>
+        <button data-theme-btn="system" aria-pressed="true">System</button>
+        <button data-theme-btn="dark" aria-pressed="false">Dark</button>
+      </div>
+    </header>
+
+    <form class="search" id="search" role="search">
+      <input id="q" type="search" placeholder="Search a city…" autocomplete="off" aria-label="Search city">
+      <button type="submit">Search</button>
+      <button type="button" id="reset" title="Back to Boca Raton">Boca</button>
+    </form>
+    <ul id="results" class="results" hidden></ul>
+    <p id="status" class="status" role="status">Loading live weather…</p>
+
+    <section class="card now" id="now" hidden>
+      <div class="now-main">
+        <div class="icon" id="icon" aria-hidden="true"></div>
+        <div>
+          <div class="temp" id="temp"></div>
+          <div class="desc" id="desc"></div>
+        </div>
+      </div>
+      <dl class="stats">
+        <div><dt>Feels like</dt><dd id="feels"></dd></div>
+        <div><dt>Humidity</dt><dd id="hum"></dd></div>
+        <div><dt>Wind</dt><dd id="wind"></dd></div>
+        <div><dt>Rain</dt><dd id="rain"></dd></div>
+      </dl>
+    </section>
+
+    <section class="card" id="hourlyCard" hidden>
+      <h2>Next 24 hours</h2>
+      <div class="hourly" id="hourly"></div>
+    </section>
+
+    <section class="card" id="dailyCard" hidden>
+      <h2>7-day forecast</h2>
+      <ul class="daily" id="daily"></ul>
+    </section>
+
+    <footer>
+      <span id="updated"></span>
+      <span>Data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></span>
+    </footer>
+  </main>
+  <script src="src/app.js"></script>
+</body>
+</html>
